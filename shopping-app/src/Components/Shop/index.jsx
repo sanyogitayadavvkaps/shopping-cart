@@ -8,11 +8,9 @@ import Category from '../Pages/Category'
 export default function Shop() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-
-  const categoryData = useContext(CategoryContext);
-  console.log("COjhTEX=>",categoryData);
+  const {categoryData} = useContext(CategoryContext);
   const[productData,setProductData]= useState([])
-  const pageSize = 10
+  const pageSize = 15
   useEffect(() => {
     getProducts()
   }, [currentPage, pageSize])
@@ -102,9 +100,9 @@ export default function Shop() {
                       >
                         {categoryData.length && categoryData.map((d, i) => {
                           return (
-                            <a className="dropdown-item" href="#">
+                            <NavLink className="dropdown-item" to={`/get-productid/${d._id}`} key={i}>
                             {d.categoryName}
-                          </a>
+                          </NavLink>
                         )}) }
                      
                   
@@ -200,15 +198,15 @@ export default function Shop() {
             <h3 className="mb-3 h6 text-uppercase text-black d-block">
               Categories
                 </h3>
-                {categoryData.length && categoryData.map((d,i) => {
+                {categoryData.length && categoryData.map((d, i) => {
                   return (
                 <ul className="list-unstyled mb-0" key={i}>
                   
                   <li className="mb-1">
-                <a href="#" className="d-flex">
+                <NavLink  to={`/get-productid/${d._id}`} className="d-flex">
                   <span>{d.categoryName }</span>{" "}
                   <span className="text-black ml-auto">({d.productId.length})</span>
-                </a>
+                </NavLink>
               </li>
             
                   </ul>
@@ -292,16 +290,3 @@ export default function Shop() {
   )
 }
 
-// {/* <nav className="ml-4">
-// <ul className="pagination">
-//   <li className="page-item disabled">
-//     <button  className="page-link">
-//       Previous
-//     </button>
-//   </li>
-//   {renderPaginationButtons()}
-//   <li className="page-item">
-//     <button className="page-link">Next</button>
-//   </li>
-// </ul>
-// </nav> */}

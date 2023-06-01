@@ -5,10 +5,10 @@ const cartSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'product'
   }, ],
-  userId: {
+  userId: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'userdetails'
-  },
+  },],
   totalPrice: {
     type: Number
   },
@@ -90,7 +90,8 @@ export const getCartModel = async () => {
           createdAt: 1,
           // price: 1,
           quantity: 1,
-            productData:1
+          productData: 1,
+          userId:1
         },
       },
     ]);
@@ -129,11 +130,22 @@ export const deleteCartModel = async (productId,userId) => {
     return { message: err, status: 500 };
   }
 };
-// userI: ObjectI(sassa),
-//   prouctList : [
-//     {
-//       productInfo: name,
-//       id: id,
-//       quantity : 12
-//   }
-// ]
+
+export const getAllCartModel = async (id) => {
+  try {
+    
+    const res = await CartsData.find({ userId: id }).populate('productId')
+
+  return {
+    data: res,
+    message: "Succes",
+    status: 200,
+  };
+} catch (err) {
+  return {
+    message: err,
+    status: 500
+  };
+}
+  
+}

@@ -3,8 +3,8 @@ import { User } from '../Model/userModel.js';
 const SECRET_KEY = "QWERTYUIOPASDFGHJKLZXCVBNM";
 const auth = async (req, res, next) => {
   try {
-    console.log("Authorization",req.header('Authorization'))
-    const token = req.header('Authorization').replace('Bearer ', '')
+    console.log("Authorization=>",req.header('Authorization'))
+    const token = (req.header('Authorization').replace('Bearer', '')).trim()
     const decoded = jwt.verify(token, SECRET_KEY)
     const user = await User.findById(decoded.userId)
 
@@ -15,6 +15,7 @@ const auth = async (req, res, next) => {
     req.token = token
     next()
   } catch (e) {
+    console.log("ERR+R=>",e);
     res.status(401).json({ success: false, error: 'Please authenticate!' })
   }
 }

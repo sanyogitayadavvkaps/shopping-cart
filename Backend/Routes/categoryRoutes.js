@@ -4,6 +4,7 @@ import {
   getCategoryByIdController,
   getCategoryController,
   getCategoryNameController,
+  getCategoryToAllProductController,
   postCategoryController,
   removeCategoryController,
   updateCategoryController,
@@ -18,6 +19,8 @@ categoryRoutes.get("/get-category", getCategoryController);
 categoryRoutes.get("/get-category/id/:id", getCategoryByIdController);
 categoryRoutes.put("/update-category/:id", updateCategoryController);
 categoryRoutes.delete("/remove-category/:id", removeCategoryController);
+categoryRoutes.get("/get-all-product-by-category/:id", getCategoryToAllProductController);
+
 
 
 

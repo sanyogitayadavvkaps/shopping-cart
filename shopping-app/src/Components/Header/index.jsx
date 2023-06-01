@@ -1,12 +1,11 @@
 import { Button } from '@mui/material';
 import React, { useContext, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { useCart } from 'react-use-cart';
 import { CategoryContext } from '../../App'
-import { AiOutlineLogin } from 'react-icons/ai'
+
 export default function Header() {
-  const { isEmpty, totalUniqueItems, items, updateItemQuantity, cartTotal, removeItem } =
-    useCart();
+  const cart = useContext(CategoryContext)
+  const { allGetCart  } = cart
   let user = localStorage.getItem('response')
   user = JSON.parse(user)
 
@@ -16,7 +15,7 @@ export default function Header() {
 
   const handleLogout = () => {
     // remove the token from local storage and update the state
-    localStorage.removeItem("token");
+    localStorage.removeItem("user_token");
     localStorage.removeItem("user_id");
     localStorage.removeItem("response");
 
@@ -24,7 +23,7 @@ export default function Header() {
   };
 
   // check if token exists in local storage
-  const storedToken = localStorage.getItem("token");
+  const storedToken = localStorage.getItem("user_token");
   if (storedToken && !token) {
     // set the token from local storage
     setToken(storedToken);
@@ -70,7 +69,7 @@ export default function Header() {
                   <li>
                     <NavLink to={'/add-to-cart'} className="site-cart">
                       <span className="icon icon-shopping_cart" />
-                      <span className="count">{items.length}</span>
+                      <span className="count">{allGetCart.length}</span>
                     </NavLink>
                   </li>
                   {/* <li className="d-inline-block ml-md-0">

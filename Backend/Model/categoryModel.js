@@ -184,3 +184,22 @@ export const removeCategoryModel = async (id) => {
     };
   }
 }
+
+
+export const getCategoryToAllProductModel = async (id) => {
+  try {
+    const res = await Categorys.findById(id).populate("productId")
+    return {
+      data: res,
+      message: "Succes",
+      status: 200,
+    };
+
+  } catch (err) {
+    console.log("ERROR->",err);
+    return {
+      message: err,
+      status: 500
+    };
+  }
+}

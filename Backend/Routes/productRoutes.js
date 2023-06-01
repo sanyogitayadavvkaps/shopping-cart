@@ -6,8 +6,11 @@ import {
     getProductByIdController,
     getProductController,
     postProuctController,
+    ProductPaymentController,
+    removeProductController,
     updateBlogController
 } from "../Controller/productController.js";
+import auth from "../middleware/auth.js";
 
 export const productRoutes = express.Router();
 
@@ -28,5 +31,8 @@ const upload = multer({
 productRoutes.post("/post-product", upload.single("prouctimg"), postProuctController);
 productRoutes.get("/get-product", getProductController);
 productRoutes.get("/get-product-by-id/:id", getProductByIdController);
-productRoutes.put("/update-product/:id",upload.single("prouctimg"), updateBlogController);
+productRoutes.put("/update-product/:id", upload.single("prouctimg"), updateBlogController);
+productRoutes.delete("/remove-product/:id", removeProductController);
+productRoutes.post("/v1/create-checkout-session",auth, ProductPaymentController);
+
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import MainLayOutes from '../../../layoute/MainLayOutes'
 
 export default function Succes() {
@@ -11,7 +12,7 @@ export default function Succes() {
             <span class="icon-check_circle display-3 text-success"></span>
             <h2 class="display-3 text-black">Thank you!</h2>
             <p class="lead mb-5">You order was successfuly completed.</p>
-            <p><a href="shop.html" class="btn btn-sm btn-primary">Back to shop</a></p>
+            <p><NavLink to="/shop" class="btn btn-sm btn-primary">Back to shop</NavLink></p>
           </div>
         </div>
       </div>

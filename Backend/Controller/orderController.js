@@ -52,7 +52,7 @@ export const paymentController = async (req, res) => {
   const payment = new Payment({
     userId: req.body.userId,
     transactionId: session.id,
-    amount: 50000,
+    amount: req.body.total,
   });
   await payment.save();
 

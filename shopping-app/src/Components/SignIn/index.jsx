@@ -51,7 +51,7 @@ const SignIn = () => {
     }
     const { token,_id } = res.data;
     if (res.auth) {
-      localStorage.setItem("token", token);
+      localStorage.setItem("user_token", token);
       localStorage.setItem("user_id", _id);
       localStorage.setItem("response", JSON.stringify(res.data));
       history("/");

@@ -1,4 +1,4 @@
-import { deleteCartModel, getCartModel, postCartModel } from "../Model/cartModel.js";
+import { deleteCartModel, getAllCartModel, getCartModel, postCartModel } from "../Model/cartModel.js";
 
 export const postCartController = async (req, res) => {
     const body = req?.body
@@ -38,4 +38,14 @@ export const deleteCartController = async (req, res) => {
     catch(err){
       res.send(err)
     }
+}
+export const getAllCartController = async (req, res) => {
+  const { id } = req.params
+  try{
+    const data = await getAllCartModel(id)
+    res.send(data)
+  }
+  catch(err){
+    res.send(err)
+  }
 }

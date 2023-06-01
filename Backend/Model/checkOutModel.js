@@ -9,43 +9,51 @@ const checkOutSchema = mongoose.Schema({
     ],
     firstName: {
         type: String,
-        required
+        required:true
      
     },
     lastName: {
         type: String,
+        required:true
      
     },
     email: {
         type: String,
+        required:true
      
     },
     phone: {
         type: String,
+        required:true
      
     },
     state: {
         type: String,
+        required:true
      
     },
     pincode: {
         type: Number,
+        required:true
      
     },
     orderNotes: {
         type: String,
+        required:true
      
     },
     country: {
         type: String,
+        required:true
    //  
     },
     cuponCode: {
-        type: String,
+        type: String  
 
     }
     , address:{
         type: String,
+        required:true
  
 }
 })
@@ -55,7 +63,7 @@ const CheckOut = mongoose.model('checkout', checkOutSchema)
 
 export const postCheckOutModel = async (body) => {
     const {
-        cartData,
+        allGetCart,
         firstName,
         lastName,
         email,
@@ -69,7 +77,7 @@ export const postCheckOutModel = async (body) => {
     } = body
     try {
         const res = await CheckOut.create({
-            cartId: cartData, // Assign the cartData array to the cartId field
+            cartId: allGetCart, // Assign the cartData array to the cartId field
             firstName,
             lastName,
             email,
@@ -81,7 +89,6 @@ export const postCheckOutModel = async (body) => {
             cuponCode,
             address
         });
-        console.log("res=>",res)
         return { data: res, message: "Succes", status: 200 };
       } catch (err) {
         console.log("ERR=>",err)

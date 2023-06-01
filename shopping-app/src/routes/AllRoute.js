@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import AddToCart from '../Components/AddToCart'
 import CheckOutForm from '../Components/CheckOutForm'
+import FindProductByCategory from '../Components/FindProductByCategory'
 import Main from '../Components/Main'
 import Succes from '../Components/Pages/Succes'
 import ProductDetails from '../Components/ProductDetail'
@@ -21,9 +22,10 @@ export default function AllRoute() {
       <Route path="/check-out-form" element={ <CheckOutForm/>}/>
       <Route path="/sign-up" element={<RegistrationForm />} />
       <Route path="/login" element={ <SignIn/>}/>
-      <Route path="/succes" element={ <Succes/>}/>
+      <Route path="/succes" element={<Succes />} />
+      <Route path="/get-productid/:id" element={ <FindProductByCategory/>}/>
+      
 
-      '
 
 
 

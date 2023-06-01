@@ -65,7 +65,7 @@ const EditProductForm = () => {
     formDataToSend.append("noOfProucts", formData.noOfProucts);
     formDataToSend.append("price", formData.price);
 
-    const res = await putRequest(`/update-blog/${id}`, formDataToSend);
+    const res = await putRequest(`/update-product/${id}`, formDataToSend);
     if (res.status === 200) {
       toast.success("Product update successfully");
       history("/proucts");
@@ -75,11 +75,11 @@ const EditProductForm = () => {
   };
 
   const deleteData = async () => {
-   const res =  await deleteRequest(`/remove-blog/${id}`);
+   const res =  await deleteRequest(`/remove-product/${id}`);
    if(res.status===200)
    {
-    toast.success("Blogs deleted successfully");
-    history("/post-page");
+    toast.success("Product deleted successfully");
+    history("/proucts");
    }
    else {
     toast.error("Error Please check..");

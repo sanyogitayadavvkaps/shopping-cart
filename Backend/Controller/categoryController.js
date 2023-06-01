@@ -1,4 +1,4 @@
-import { getCategoryByIdModel, getCategoryModel, getCategoryNameModel, postCategorysModel, removeCategoryModel, updateCategoryModel } from "../Model/categoryModel.js"
+import { getCategoryByIdModel, getCategoryModel, getCategoryNameModel, getCategoryToAllProductModel, postCategorysModel, removeCategoryModel, updateCategoryModel } from "../Model/categoryModel.js"
 
 export const postCategoryController = async(req,res) =>{
     const {body} = req
@@ -78,5 +78,18 @@ export const removeCategoryController = async(req,res)=>{
   }
   catch(err){
     res.send(err)
+  }
+}
+
+//
+
+export const getCategoryToAllProductController = async(req,res) =>{
+  const {id} = req.params
+  try{
+      const data = await getCategoryToAllProductModel(id)
+      res.send(data)
+  }
+  catch(err){
+      res.send(err)
   }
 }

@@ -9,7 +9,7 @@ const Products = () => {
   const [getBlog, setGetBlog] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(10);
   const [totalRecord, setTotalRecord] = useState(0);
   const [search, setSearch] = useState("");
 

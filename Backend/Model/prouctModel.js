@@ -41,9 +41,9 @@ export const postProductModel = async ({ body, productImage }) => {
         noOfProucts
       });
 
-    const cat = await Categorys.findById(CategoryId);
-    cat?.productId?.push(res._id)
-   await cat?.save()
+      const cat = await Categorys.findById(CategoryId);
+      cat?.productId?.push(res._id)
+  await cat?.save()
 
       return { data: res, message: "Succes", status: 200 };
     } catch (err) {
@@ -128,9 +128,20 @@ export const postProductModel = async ({ body, productImage }) => {
         id,
         { ...body, productImage },
         { new: true }
-      );
+      )
       return { data: res, message: "Success", status: 200 };
     } catch (err) {
+      return { message: err, status: 500 };
+    }
+  };
+
+  export const removeProductModel = async (id) => {
+    try {
+      const res = await Products.findByIdAndRemove(id);
+      return { data: res, message: "Success", status: 200 };
+    } catch (err) {
+      console.log("Err=>", err);
+  
       return { message: err, status: 500 };
     }
   };
