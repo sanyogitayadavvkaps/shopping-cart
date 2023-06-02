@@ -1,56 +1,48 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { getRequest, ServerUrl } from '../../Api'
-import { CategoryContext } from '../../App'
-import MainLayOutes from '../../layoute/MainLayOutes'
-import Category from '../Pages/Category'
+
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getRequest, ServerUrl } from '../../Api';
+import Category from '../Pages/Category';
+import MainLayOutes from '../../layoute/MainLayOutes';
+import Pagination  from "react-js-pagination"
+import { setCurrentData } from '../../actions';
+
 
 export default function Shop() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPage, setTotalPage] = useState(0);
-  const {categoryData} = useContext(CategoryContext);
-  const[productData,setProductData]= useState([])
-  const pageSize = 15
+  const pageSize= 5
+  const[count,setCount] = useState(0)
+  const currentPage = useSelector(state => state.product.currentPage);
+  const categoryData = useSelector((state) => state.product.categoryData);
+  const totalPage = useSelector(state => state.totalPage);
+  const productData = useSelector(state => state.product.productData); 
+  const dispatch = useDispatch();
   useEffect(() => {
-    getProducts()
-  }, [currentPage, pageSize])
+    getProducts();
+  }, [currentPage]);
   
+console.log("CURREBT=>",currentPage);
   const getProducts = async () => {
-    const res = await getRequest(`/get-product?pageNumber=${currentPage}&pageSize=${pageSize}`)
-    setTotalPage(res.totalPages);
-    setProductData(res.data)    
-  }
-
-  const renderPaginationButtons = () => {
-    const buttons = [];
-    // Previous button
-    buttons.push(
-      <li className="page-item" key="prev">
-        <button className="page-link" onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
-      </li>
-    );
-    // Page buttons
-    for (let i = 1; i <= totalPage; i++) {
-      buttons.push(
-        <li className={`page-item ${i === currentPage ? "active" : ""}`} key={i}>
-          <button className="page-link" onClick={() => setCurrentPage(i)}>
-            {i}
-          </button>
-        </li>
-      );
-    }
-    // Next button
-    if (productData.length >= 10) {
-      buttons.push(
-        <li className="page-item" key="next">
-          <button className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
-        </li>
-      );
-    }
-   
-    return buttons;
+    const res = await getRequest(`/get-product?pageNumber=${currentPage}&pageSize=${pageSize}`);
+    setCount(res.count)
+    dispatch({ type: 'SET_TOTAL_PAGE', payload: res.totalPages });
+    dispatch({ type: 'SET_PRODUCT_DATA', payload: res.data });
+  };
+  const handlePageChange = (pageNumber) => {
+    console.log("pageNumber=>",pageNumber);
+    dispatch(setCurrentData(pageNumber));
   };
 
+const renderPaginationButtons = () => {
+  return (
+    <Pagination
+      activePage={currentPage}
+      itemsCountPerPage={pageSize}
+      totalItemsCount={count}
+      onChange={handlePageChange}
+    />
+  );
+};
   
   return (
     <MainLayOutes>
